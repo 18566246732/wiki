@@ -1,0 +1,1 @@
+keep the idea simple
