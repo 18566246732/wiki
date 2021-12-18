@@ -21,27 +21,27 @@ DFT算法的时间复杂度是O(n^2)，而FFT可以降低到O(nlog2(n))
 要理解FFT的原理还是比较简单的，无非就是利用矩阵向量ωn的2个特性:
 - 周期性
 
-  ![周期性](../dft-in-javascript/img/dft-periodic.svg)
+  ![周期性](../dft-in-javascript/images/dft-periodic.svg)
 
 - 对称性
 
-  ![对称性](../dft-in-javascript/img/dft-symmetry.svg)
+  ![对称性](../dft-in-javascript/images/dft-symmetry.svg)
 
 来对`DFT matrix`做一些简化：
-![dft matrix](../dft-in-javascript/img/matrix.png)
+![dft matrix](../dft-in-javascript/images/matrix.png)
 
 关于FFT的算法实现有很多个版本，最常见的还是[Cooley-Tukey算法](https://zh.wikipedia.org/wiki/%E5%BA%93%E5%88%A9%EF%BC%8D%E5%9B%BE%E5%9F%BA%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E7%AE%97%E6%B3%95)
 
 下面是具体的公式推导，有兴趣的可以演算一下，这里的H[k]是奇数行，G[k]是偶数行，因为奇数行是总行数的一半，这也验证了上篇文章中的结论："k只需要计算到N/2就可以了"。
 
-![fft-formula](./img/fft-formula.png)
+![fft-formula](./images/fft-formula.png)
 
 进一步的研究发现G[k]和H[k]也是周期性的，所以我们可以将G[k]继续拆分成奇数行和偶数行，并一直递归的拆分下去，直到无法拆分为止。
 
 每一次递归的拆分，k值都会变成原来的一半，最终发现k值从DFT算法的n变成了log2(n)，于是FFT算法复杂度也就变成了O(nlog2(n))，其中n是ωn矩阵的列数没有变，而行数k缩短到了log2(n)
 
 从下面的蝶形网络看出最终的计算过程
-![DIT_N8_ALL](./img/DIT_N8_ALL.png)
+![DIT_N8_ALL](./images/DIT_N8_ALL.png)
 
 这个过程主要有2点值得注意:
 
@@ -117,7 +117,7 @@ FFT.prototype.forward = function(buffer) {
 
 数学上其实很简单，直接求log2(n)，然后判断是整数就行了，但是javascript需要绕一下：
 
-![ln.png](./img/ln.png)
+![ln.png](./images/ln.png)
 
 于是就有了：
 
@@ -201,7 +201,7 @@ var k = Math.floor(Math.log(bufferSize) / Math.LN2);
 ```
 
 整个蝶形网络的运算是fft的核心内容，整个代码经过了外，中，内三层循环，其中的运算单元如下图的红色框所示所示：
-![DIT_N8_ALL_marked](./img/DIT_N8_ALL_marked.jpg)
+![DIT_N8_ALL_marked](./images/DIT_N8_ALL_marked.jpg)
 
 
 ### 后记

@@ -17,10 +17,10 @@
 
   一开始接触fx-code-mobile项目的时候有点崩溃，因为编译的过程控制台啥也没有，很慢但又说不出来有多慢：
 
-  ![console-oninfo](./img/console-noinfo.png)
+  ![console-oninfo](./images/console-noinfo.png)
 
   编译结束之后控制台一堆插件的打包信息，无法直观的看出bundle的信息：
-  ![console-oninfo](./img/console-useless-logs.png)
+  ![console-oninfo](./images/console-useless-logs.png)
 
 - 解决
 
@@ -53,10 +53,10 @@
 - 问题
 
   fx-code-mobile这个项目在一开始的编译速度极慢，首次编译需要一分钟
-  ![console-oninfo](./img/init-compile.png)
+  ![console-oninfo](./images/init-compile.png)
 
   增量编译10s，开发等待的时间长，效率低
-  ![console-oninfo](./img/incremental-compile.png)
+  ![console-oninfo](./images/incremental-compile.png)
 
 - 解决
 
@@ -66,7 +66,7 @@
 
     这个插件主要用来查看bundle打包的结果，通过效果图可以看出哪些bundle体积过大需要优化，比如之前一直用的moment.js，发现它体积巨大而且包含一些无用的模块像locale，后来用dayjs替换后体积小了很多
 
-    ![bundle-react](./img/bundle-react.png)
+    ![bundle-react](./images/bundle-react.png)
 
     类似于react这种类型的第三方库，可以加入dll中，来提升开发环境打包速度，但是对于生产环境不提倡使用，因为dll无法tree shaking，关于dll的使用网上有很多教程，这里不再赘述
 
@@ -74,7 +74,7 @@
 
     这个插件主要用来分析打包过程中各个阶段的耗时：
 
-    ![speed-measure](./img/speed-measure.png)
+    ![speed-measure](./images/speed-measure.png)
 
     从上面的分析可以看出：
     
@@ -114,7 +114,7 @@
       ```
       注意thread-loader只适用于耗时较长的loader，如果过多的使用它，线程资源的开销时间会大于它节省的时间，反而会延长打包时间，优化之后的效果如下：
 
-      ![after-optimize-speed](./img/after-optimize-speed.png)
+      ![after-optimize-speed](./images/after-optimize-speed.png)
 
       可以看到，优化后webpack的打包速度从60s减低到12s
 
@@ -152,11 +152,11 @@
 
 - 优化前
 
-  ![speed-measure](./img/entrypoint.png)
+  ![speed-measure](./images/entrypoint.png)
 
 - 优化后
 
-  ![speed-measure](./img/entrypoint-optimized.png)
+  ![speed-measure](./images/entrypoint-optimized.png)
 
 优化后不仅仅size变小了，每个页面的体积也不一样了，下面是详细的优化过程：
 
@@ -165,7 +165,7 @@
 - 问题
 
   做过这么多项目，还从来没看到过entrypoint有3.26M这么大，去lighthouse测一下跑分呢，果然也很惨：
-  ![speed-measure](./img/audit.png)
+  ![speed-measure](./images/audit.png)
 
   看了webpack的配置，才发现了问题所在：
   ```js
@@ -428,7 +428,7 @@
 - 问题
 
   如果只是少数几个页面比较大也就算了，但仔细一看后发现所有的页面都是一样的体积
-  ![speed-measure](./img/multi-page.png)
+  ![speed-measure](./images/multi-page.png)
   每个entrypoint都有着相同的pages，hooks，utils等等，即使每个页面下面使用的组件是不同的，打包之后的所有页面也变成了体积完全相同的一坨
 
 - 解决
@@ -463,7 +463,7 @@
   ```
 
   解决方案就是要么升级webpack版本，要么避免这种中心化re-export，下图可以看到，不用re-export之后，页面的体积开始分化
-  ![prod-optimized](./img/prod-optimized.png)
+  ![prod-optimized](./images/prod-optimized.png)
 
 ## 总结
 

@@ -25,11 +25,11 @@ DFT之所以被称为离散傅立叶变换(Discrete Fourier Transform)，是因�
 #### 二. how to code it with javascript
 进入到第二部分，假设你已经掌握了DFT的原理，所以我直接给出其数学定义
 
-![dft-equation](./img/dft-equation.svg)
+![dft-equation](./images/dft-equation.svg)
 
 用fn代替xn，用^fn代替Xn，用ωn代替e^{-2πi/n}之后，这个等式实际上可以用矩阵来表示
 
-![dft matrix](./img/matrix.png)
+![dft matrix](./images/matrix.png)
 
 (华盛顿大学的教授做了很简洁的[视频课程](https://www.youtube.com/watch?v=E8HeD-MUrjY)，介绍了公式到矩阵的推导过程)
 
@@ -143,11 +143,11 @@ k < this.bufferSize/2
 因为矩阵向量ωn具有下面2个特性:
 - 周期性
 
-  ![周期性](./img/dft-periodic.svg)
+  ![周期性](./images/dft-periodic.svg)
 
 - 对称性
 
-  ![对称性](./img/dft-symmetry.svg)
+  ![对称性](./images/dft-symmetry.svg)
 
 所以频谱的信号只需要分析一半就可以了，另一半是共轭的。
 
